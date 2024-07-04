@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Post, Req, Res} from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { PaymentSessionDto } from './dto/payment-session.dto';
 import { Request, Response } from 'express';
@@ -10,35 +9,33 @@ export class PaymentsController {
 
 
   @Post('create-payment-session')
-  createPaymentSession( @Body() paymentSessionDto:PaymentSessionDto ) {
+  createPaymentSession(@Body() paymentSessionDto: PaymentSessionDto ) {
     return this.paymentsService.createPaymentSession(paymentSessionDto);
   }
 
-
   @Get('success')
-  success(){
+  success() {
     return {
       ok: true,
       message: 'Payment successful'
     }
   }
 
-
-
   @Get('cancel')
-  cancel(){
+  cancel() {
     return {
       ok: false,
-      message: 'Payment cancel'
+      message: 'Payment cancelled'
     }
   }
 
+
   @Post('webhook')
-  async stripeWebhook( @Req() request: Request, @Res() response: Response ) {
-    // console.log('stripe webhook called');
-    // return 'stripe webhook called'
-    return this.paymentsService.stripeWebhook( request, response );
+  async stripeWebhook(@Req() req: Request, @Res() res: Response) {
+    return this.paymentsService.stripeWebhook(req, res);
   }
+
+
 
 
 }
